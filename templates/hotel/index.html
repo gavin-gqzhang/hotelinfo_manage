@@ -1,0 +1,240 @@
+{% extends 'hotel/base.html' %}
+{% load static %}
+    {% block top %}
+        {{ block.super }}
+    {% endblock %}
+{% block index %}
+    <div class="wrapper">
+
+        <!--Start Page Title-->
+        <div class="page-title-box">
+            <h4 class="page-title">首页</h4>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{% url 'hotel:backstage_index' %}">酒店后台管理系统</a>
+                </li>
+
+                <li class="active">
+                    首页
+                </li>
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+        <!--End Page Title-->
+
+        <!--Start row-->
+        <div class="row">
+            <div class="container">
+                <div class="analytics-box">
+
+                </div>
+            </div>
+        </div>
+        <!--End row-->
+
+        <!--Start row-->
+        <div class="row">
+            <!--Start info box-->
+            <div class="col-md-3 col-sm-6">
+                <div class="info-box-main">
+                    <div class="info-stats">
+                        <p>{{ today_order_price }}</p>
+                        <span>今日销售额 </span>
+                    </div>
+                    <div class="info-icon text-primary ">
+                        <i class="mdi mdi-cart"></i>
+                    </div>
+                    <div class="info-box-progress">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: 80%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End info box-->
+
+            <!--Start info box-->
+            <div class="col-md-3 col-sm-6">
+                <div class="info-box-main">
+                    <div class="info-stats">
+                        <p>{{ total_order_price }}</p>
+                        <span>总销售额</span>
+                    </div>
+                    <div class="info-icon text-info">
+                        <i class="mdi mdi-account-multiple"></i>
+                    </div>
+                    <div class="info-box-progress">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-info" role="progressbar" style="width: 70%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End info box-->
+
+            <!--Start info box-->
+            <div class="col-md-3 col-sm-6">
+                <div class="info-box-main">
+                    <div class="info-stats">
+                        <p>{{ today_order }}</p>
+                        <span>今日订单数</span>
+                    </div>
+                    <div class="info-icon text-warning">
+                        <i class="fa fa-dollar"></i>
+                    </div>
+                    <div class="info-box-progress">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" style="width: 50%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End info box-->
+
+            <!--Start info box-->
+            <div class="col-md-3 col-sm-6">
+                <div class="info-box-main">
+                    <div class="info-stats">
+                        <p>{{ total_order }}</p>
+                        <span>总订单数</span>
+                    </div>
+                    <div class="info-icon text-danger">
+                        <i class="mdi mdi-weight"></i>
+                    </div>
+                    <div class="info-box-progress">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-danger" role="progressbar" style="width: 90%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End info box-->
+
+        </div>
+        <!--End row-->
+
+
+        <!--Start row-->
+        {#                <div class="row">#}
+        {#                     <div class="col-md-6">#}
+        {#                         <div class="white-box">#}
+        {#                         <h2 class="header-title">销售额图像</h2>#}
+        {#                               <div id="morris-area-chart" style="height:250px;"></div>#}
+        {#                         </div>#}
+        {#                     </div>#}
+        {##}
+        {##}
+        {#                  <div class="col-md-6">#}
+        {#                      <div class="white-box">#}
+        {#                          <h2 class="header-title">订单图像</h2>#}
+        {#                            <div id="morris2"  style="height:250px;"></div>#}
+        {##}
+        {#                      </div>#}
+        {#                  </div><!-- /col-md-6-->#}
+        {##}
+        {##}
+        {#                </div>#}
+        <!--End row-->
+
+
+        <!--Start row-->
+        <div class="row">
+
+            <!-- Start inbox widget-->
+            <div class="col-md-6">
+                <div class="white-box">
+                    <h2 class="header-title">订单信息</h2>
+                    <div class="inbox-widget inbox-scroll-list">
+                        {% for order in order_list %}
+                            <div class="inbox-inner">
+                                <a href="{% url 'hotel:order_datail' order.ordernum %}">
+                                    <div class="inbox-item">
+                                        <div class="inbox-img">
+                                            <img src="{% static 'assets/hotel_assets/images/users/avatar-1.jpg' %}"
+                                                 alt=""/>
+                                        </div>
+
+                                        <div class="inbox-item-info">
+                                            <p class="author">{{ order.name }}</p>
+                                            <p class="inbox-message">{{ order.phone }}</p>
+                                            <p class="inbox-date">{{ order.ordertime }}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+            <!-- End inbox widget-->
+
+
+            <!-- Start timeline-->
+            <div class="col-md-6">
+                <div class="white-box">
+                    <h2 class="header-title">在岗信息</h2>
+                    <ul class="timeline timeline-compact">
+                        {% for staff in staff_list %}
+                            <li class="latest">
+                                <div class="timeline-date">{{ staff.name }}</div>
+                                <div class="timeline-title">{{ staff.phone }}</div>
+                                <div class="timeline-description">在岗</div>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+            <!-- End timeline-->
+
+
+            <!-- Start inbox widget-->
+            <div class="col-md-12">
+                <div class="white-box">
+                    <h2 class="header-title"></h2>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>房型名称</th>
+                                <th>共有房间数</th>
+                                <th>已住房间数</th>
+                                <th>当前时间</th>
+                                <th>入住进度</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for home in home_list %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ home.name }}</td>
+                                    <td>{{ home.num }}</td>
+                                    <td>{{ home.live_num }}</td>
+                                    <td><span class="label label-success">{{ local_time }}</span></td>
+                                    <td>
+                                        <div class="progress progress-striped progress-sm">
+                                            <div class="progress-bar progress-bar-warning"
+                                                 style="width: {{ home.live_rate }}%;"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Start inbox widget-->
+        </div>
+        <!--End row-->
+
+    </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+  <title>500</title>
+   <link href="{% static 'css/icons.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+
+
+</head>
+
+<body class="error-bg">
+
+ <!--Start Section-->
+ <section>
+     <div class="container">
+         <div class="row">
+             <div class="error-inner">
+                 <h1>啊！您的{{ msg }}出现错误啦</h1>
+                 <h3>滴滴滴，服务器出现错误啦，可能是代码问题</h3>
+                 <p>对不起的啦，程序猿没有处理好bug，您先看看别的，我这就去打他！</p>
+                 <a href="{% url 'main:index' %}" class="btn btn-primary">回到首页</a>
+             </div>   
+         </div>
+     </div>
+ </section>
+ <!--End Section-->
+
+
+
+
+    <!--Begin core plugin -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- End core plugin -->
+
+</body>
+
+</html>

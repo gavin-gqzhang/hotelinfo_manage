@@ -1,0 +1,323 @@
+{% extends 'hotel/base.html' %}
+
+{% load static %}
+{% block top %}
+    {{ block.super }}
+{% endblock %}
+
+{% block home_info %}
+    <div class="wrapper">
+
+        <!--Start Page Title-->
+        <div class="page-title-box">
+            <h4 class="page-title">房型信息与房间信息维护</h4>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{% url 'hotel:backstage_index' %}">酒店后台管理系统</a>
+                </li>
+                <li>
+                    <a href="{% url 'hotel:user_info' %}">信息维护</a>
+                </li>
+                <li class="active">
+                    房型信息与房间信息维护
+                </li>
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+        <!--End Page Title-->
+
+
+        <!--Start row-->
+        <div class="row">
+            <form action="{% url 'hotel:update_hometype' %}" method="post">
+                {% csrf_token %}
+                <div class="col-md-6">
+                    <div class="white-box">
+                        <h2 class="header-title">房型信息维护</h2>
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">房型</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="home_name">
+                                        <option>请选择</option>
+                                        {% for home in home_list %}
+                                            <option value="{{ home.name }}">{{ home.name }}</option>
+                                        {% endfor %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">价格</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="inputPassword3" placeholder="价格" type="text"
+                                           name="price">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">详情</label>
+                                <div class="col-sm-9">
+                                    <textarea rows="4" class="form-control" placeholder="房型详情" name="datail"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">房间数量</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" placeholder="房间数量" name="num" type="text"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">清洁价格</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" placeholder="清洁价格" name="clean_price" type="text"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">验证码</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" placeholder="验证码" name="code" type="text"/>
+                                    <img src="{% url 'hotel:ver_code' %}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                        id="img"> 看不清？点击图片换一张 </span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="checkbox primary">
+                                        <input type="checkbox" id="checkbox2"> <label for="checkbox2"> Remember
+                                        me </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group m-b-0">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-primary">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.col-md-6-->
+            </form>
+
+            <form action="{% url 'hotel:update_homenum' %}" method="post">
+                {% csrf_token %}
+                <div class="col-md-6">
+                    <div class="white-box">
+                        <h2 class="header-title">房间信息维护</h2>
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">房号</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="home_num">
+                                        <option>请选择</option>
+                                        {% for home_num in home_nums %}
+                                            <option value="{{ home_num.num }}">{{ home_num.num }}</option>
+                                        {% endfor %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">房型</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="home_type">
+                                        <option>请选择</option>
+                                        {% for home in home_list %}
+                                            <option value="{{ home.name }}">{{ home.name }}</option>
+                                        {% endfor %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">是否打扫</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" placeholder="0为未打扫，1为打扫" name="is_clean" type="number"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">打扫人</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="home_type">
+                                        <option>请选择</option>
+                                        {% for user in user_list %}
+                                            <option value="{{ user }}">{{ user }}</option>
+                                        {% endfor %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">验证码</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" placeholder="验证码" name="code" type="text"/>
+                                    <img src="{% url 'hotel:ver_code' %}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                        id="img"> 看不清？点击图片换一张 </span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="checkbox primary">
+                                        <input type="checkbox" id="checkbox2"> <label for="checkbox2"> Remember
+                                        me </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group m-b-0">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-primary">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.col-md-6-->
+            </form>
+
+        </div>
+        <!--End row-->
+
+        <!--Start row-->
+        <div class="row">
+            <form action="{% url 'hotel:add_hometype' %}" method="post">
+                {% csrf_token %}
+                <div class="col-md-6">
+                    <div class="white-box">
+                        <h2 class="header-title">添加房型</h2>
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">房型</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="inputPassword3" placeholder="房型" type="text"
+                                           name="home_type">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">价格</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="inputPassword3" placeholder="价格" type="text"
+                                           name="price">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">详情</label>
+                                <div class="col-sm-9">
+                                    <textarea rows="4" class="form-control" placeholder="房型详情" name="datail"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">房间数量</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" placeholder="房间数量" name="num" type="text"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">清洁价格</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" placeholder="清洁价格" name="clean_price" type="text"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">验证码</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" placeholder="验证码" name="code" type="text"/>
+                                    <img src="{% url 'hotel:ver_code' %}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                        id="img"> 看不清？点击图片换一张 </span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="checkbox primary">
+                                        <input type="checkbox" id="checkbox2"> <label for="checkbox2"> Remember
+                                        me </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group m-b-0">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-primary">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.col-md-6-->
+            </form>
+
+            <form action="{% url 'hotel:add_homenum' %}" method="post">
+                {% csrf_token %}
+                <div class="col-md-6">
+                    <div class="white-box">
+                        <h2 class="header-title">添加房间</h2>
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">房号</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" placeholder="房间号" name="home_num" type="text"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">房型</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="home_type">
+                                        <option>请选择</option>
+                                        {% for home in home_list %}
+                                            <option value="{{ home.name }}">{{ home.name }}</option>
+                                        {% endfor %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">验证码</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" placeholder="验证码" name="code" type="text"/>
+                                    <img src="{% url 'hotel:ver_code' %}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                        id="img"> 看不清？点击图片换一张 </span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="checkbox primary">
+                                        <input type="checkbox" id="checkbox2"> <label for="checkbox2"> Remember
+                                        me </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group m-b-0">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-primary">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.col-md-6-->
+            </form>
+
+        </div>
+        <!--End row-->
+
+
+    </div>
+{% endblock %}

@@ -1,0 +1,171 @@
+{% extends 'hotel/base.html' %}
+{% load static %}
+{% block top %}
+    {{ block.super }}
+{% endblock %}
+{% block staff-pay %}
+    <div class="wrapper">
+
+        <!--Start Page Title-->
+        <div class="page-title-box">
+            <h4 class="page-title">工资信息</h4>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{% url 'hotel:backstage_index' %}">酒店后台管理系统</a>
+                </li>
+                <li>
+                    <a href="{% url 'hotel:sale_info' %}">交易信息</a>
+                </li>
+                <li class="active">
+                    工资信息
+                </li>
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+        <!--End Page Title-->
+
+        <!--Start row-->
+        <div class="row">
+            <div class="container">
+                <div class="analytics-box">
+
+                </div>
+            </div>
+        </div>
+        <!--End row-->
+
+        <!--Start row 展示员工数量，总员工工资，绩效工资-->
+        <div class="row">
+            <!--Start info box-->
+            <div class="col-md-3 col-sm-6">
+                <div class="info-box-main">
+                    <div class="info-stats">
+                        <p>{{ staff_num }}</p>
+                        <span>员工数量 </span>
+                    </div>
+                    <div class="info-icon text-primary ">
+                        <i class="mdi mdi-cart"></i>
+                    </div>
+                    <div class="info-box-progress">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: 80%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End info box-->
+
+            <!--Start info box-->
+            <div class="col-md-3 col-sm-6">
+                <div class="info-box-main">
+                    <div class="info-stats">
+                        <p>{{ performance }}</p>
+                        <span>绩效工资</span>
+                    </div>
+                    <div class="info-icon text-info">
+                        <i class="mdi mdi-account-multiple"></i>
+                    </div>
+                    <div class="info-box-progress">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-info" role="progressbar" style="width: 70%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End info box-->
+
+            <!--Start info box-->
+            <div class="col-md-3 col-sm-6">
+                <div class="info-box-main">
+                    <div class="info-stats">
+                        <p>{{ staff_price }}</p>
+                        <span>总员工工资</span>
+                    </div>
+                    <div class="info-icon text-warning">
+                        <i class="fa fa-dollar"></i>
+                    </div>
+                    <div class="info-box-progress">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" style="width: 50%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End info box-->
+
+            <!--Start info box-->
+            <div class="col-md-3 col-sm-6">
+                <div class="info-box-main">
+                    <div class="info-stats">
+                        <p>{{ order_num }}</p>
+                        <span>总订单数</span>
+                    </div>
+                    <div class="info-icon text-danger">
+                        <i class="mdi mdi-weight"></i>
+                    </div>
+                    <div class="info-box-progress">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-danger" role="progressbar" style="width: 90%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End info box-->
+
+        </div>
+        <!--End row-->
+
+
+        <!--Start row 循环每个员工的工资单信息，以及结算信息-->
+        <div class="row">
+            <!-- Start inbox widget-->
+            <div class="col-md-12">
+                <div class="white-box">
+                    <h2 class="header-title"></h2>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>员工姓名</th>
+                                <th>打扫房间个数</th>
+                                <th>绩效工资</th>
+                                <th>基本工资</th>
+                                <th>结算时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for staff in staffs %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ staff }}</td>
+                                        <td>{{ staffs.staff.clean_num }}</td>
+                                        <td>{{ staffs.staff.performance }}</td>
+                                        <td><span class="label label-success">{{ staffs.staff.base_salary }}</span></td>
+                                        {% ifequal staffs.staff.datetime None %}
+                                        <td>
+                                            未结算
+                                        </td>
+                                            {% else %}
+                                            <td>{{ staffs.staff.datetime }}</td>
+                                        {% endifequal %}
+
+                                    </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Start inbox widget-->
+        </div>
+        <!--End row-->
+
+    </div>
+{% endblock %}

@@ -1,0 +1,425 @@
+{% extends 'hotel/base.html' %}
+
+{% load static %}
+{% block top %}
+    {{ block.super }}
+{% endblock %}
+{% block user_info %}
+    <div class="wrapper">
+
+        <!--Start Page Title-->
+        <div class="page-title-box">
+            <h4 class="page-title">个人信息与员工信息维护</h4>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{% url 'hotel:backstage_index' %}">酒店后台管理系统</a>
+                </li>
+                <li>
+                    <a href="{% url 'hotel:user_info' %}">信息维护</a>
+                </li>
+                <li class="active">
+                    个人信息与员工信息维护
+                </li>
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+        <!--End Page Title-->
+
+
+        <!--个人信息维护-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="white-box">
+                        <h2 class="header-title">个人信息维护</h2>
+
+                        <form class="form-horizontal" action="{% url 'hotel:update_userinfo' %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">用户名</label>
+                                <div class="col-md-10">
+                                    <input class="form-control" name="username" value="{{ username }}" readonly="readonly" type="text">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="example-name">姓名</label>
+                                <div class="col-md-10">
+                                    <input id="example-name" name="name" class="form-control"
+                                           placeholder="姓名"
+                                           type="text" value="{{ name }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="example-email">邮箱</label>
+                                <div class="col-md-10">
+                                    <input id="example-email" name="email" class="form-control"
+                                           placeholder="邮箱"
+                                           type="email" value="{{ email }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="example-phone">联系方式</label>
+                                <div class="col-md-10">
+                                    <input id="example-phone" name="phone" class="form-control"
+                                           placeholder="联系方式"
+                                           type="text" value="{{ phone }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="example-qq">QQ</label>
+                                <div class="col-md-10">
+                                    <input id="example-qq" name="qq" class="form-control"
+                                           placeholder="QQ"
+                                           type="text" value="{{ qq }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="example-hotel">酒店名称</label>
+                                <div class="col-md-10">
+                                    <input id="example-hotel" class="form-control"
+                                           placeholder="酒店名称"
+                                           readonly="readonly"
+                                           type="text" value="{{ hotel_name }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="example-join">创建时间</label>
+                                <div class="col-md-10">
+                                    <input id="example-join" class="form-control"
+                                           placeholder="创建时间"
+                                           readonly="readonly"
+                                           type="text" value="{{ create_date }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="last_login">最后登录时间</label>
+                                <div class="col-md-10">
+                                    <input id="last_login" class="form-control"
+                                           placeholder="最后登录时间"
+                                           readonly="readonly"
+                                           type="text" value="{{ last_login }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-6 col-sm-12">
+                                    <button type="submit" class="btn btn-primary">确认修改</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <!--End row-->
+
+        <!-- 输入框大小等相信信息渲染
+        <div class="row">
+            <div class="col-md-12">
+            <div class="white-box">
+                <div class="col-md-6">
+                  <h2 class="header-title">Input States</h2>
+                   <form class="form-horizontal">
+                       <div class="form-group has-success">
+                           <label class="col-md-3 control-label" for="state-success">Success</label>
+                           <div class="col-md-6">
+                               <input id="state-success" name="state-success" class="form-control" placeholder="..." type="text">
+                           </div>
+                       </div>
+
+
+                       <div class="form-group has-warning">
+                           <label class="col-md-3 control-label" for="state-warning">Warning</label>
+                           <div class="col-md-6">
+                               <input id="state-warning" name="state-warning" class="form-control" placeholder="..." type="text">
+                           </div>
+                       </div>
+
+                       <div class="form-group has-error">
+                           <label class="col-md-3 control-label" for="state-danger">Danger</label>
+                           <div class="col-md-6">
+                               <input id="state-danger" name="state-danger" class="form-control" placeholder="..." type="text">
+                           </div>
+                       </div>
+
+                       <div class="form-group has-success has-feedback">
+                           <label class="col-sm-3 control-label">Input with success </label>
+                           <div class="col-sm-6">
+                               <input class="form-control" type="text">
+                               <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                           </div>
+                       </div>
+
+                       <div class="form-group has-warning has-feedback">
+                           <label class="col-sm-3 control-label">Input with warning </label>
+                           <div class="col-sm-6">
+                               <input class="form-control inputmask" type="text">
+                               <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                           </div>
+                       </div>
+
+                       <div class="form-group has-error has-feedback">
+                           <label class="col-sm-3 control-label">Input with error </label>
+                           <div class="col-sm-6">
+                               <input class="form-control inputmask" type="text">
+                               <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                           </div>
+                       </div>
+
+                   </form>
+               </div>
+
+                <div class="col-md-6">
+                   <h2 class="header-title">Input Sizes</h2>
+                   <form class="form-horizontal">
+                       <div class="form-group">
+                           <label class="col-sm-3 control-label" for="example-input-small">Small</label>
+                           <div class="col-sm-6">
+                               <input id="example-input-small" name="example-input-small" class="form-control input-sm" placeholder=".input-sm" type="text">
+                           </div>
+                       </div>
+
+                       <div class="form-group">
+                           <label class="col-sm-3 control-label" for="example-input-normal">Normal</label>
+                           <div class="col-sm-6">
+                               <input id="example-input-normal" name="example-input-normal" class="form-control" placeholder="Normal" type="text">
+                           </div>
+                       </div>
+
+                       <div class="form-group">
+                           <label class="col-sm-3 control-label" for="example-input-large">Large</label>
+                           <div class="col-sm-6">
+                               <input id="example-input-large" name="example-input-large" class="form-control input-lg" placeholder=".input-lg" type="text">
+                           </div>
+                       </div>
+
+                       <div class="form-group">
+                           <label class="col-sm-3 control-label">Grid Sizes</label>
+                           <div class="col-sm-4">
+                               <input class="form-control" placeholder=".col-sm-4" type="text">
+                           </div>
+                       </div>
+
+                       <div class="form-group">
+                           <div class="col-sm-5 col-sm-offset-3">
+                               <input class="form-control" placeholder=".col-sm-5" type="text">
+                           </div>
+                       </div>
+
+                       <div class="form-group">
+                           <div class="col-sm-6 col-sm-offset-3">
+                               <input class="form-control" placeholder=".col-sm-6" type="text">
+                           </div>
+                       </div>
+
+                       <div class="form-group">
+                           <div class="col-sm-9 col-sm-offset-3">
+                               <input class="form-control" placeholder=".col-sm-9" type="text">
+                           </div>
+                       </div>
+                   </form>
+               </div>
+               </div>
+             </div>
+        </div>
+        -->
+
+
+        <!--下拉选项框
+        <div class="row">
+           <div class="col-md-12">
+            <div class="white-box">
+                <h2 class="header-title">Select Fields</h2>
+                   <form class="form-horizontal">
+                   <div class="form-group">
+                   <label class="col-sm-3 control-label">Select Sizing</label>
+                   <div class="col-sm-5">
+                   <select class="form-control input-sm m-b-15">
+                   <option>Option 1</option>
+                   <option>Option 2</option>
+                   <option>Option 3</option>
+                   </select>
+                   <select class="form-control m-b-15">
+                   <option>Option 1</option>
+                   <option>Option 2</option>
+                   <option>Option 3</option>
+                   </select>
+                   <select class="form-control input-lg">
+                   <option>Option 1</option>
+                   <option>Option 2</option>
+                   <option>Option 3</option>
+                   </select>
+                   </div>
+                 </div>
+
+                   </form>
+                  </div>
+              </div>
+         </div>
+        -->
+
+
+        <div class="row">
+            <form method="post" action="{% url 'main:change_password' %}">
+                {% csrf_token %}
+                <!--修改密码-->
+                <div class="col-md-6">
+                    <div class="white-box">
+                        <h2 class="header-title">修改密码</h2>
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">用户名</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" readonly="readonly" id="inputEmail3" name="username" placeholder="用户名"
+                                           type="text" value="{{ username }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">邮箱</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="inputEmail3" name="email" placeholder="邮箱"
+                                           type="email">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">新密码</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="inputPassword3" name="password" placeholder="新密码"
+                                           type="password">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">确认密码</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" name="make_sure_password" placeholder="确认密码"
+                                           type="password">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">验证码</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" name="make_sure_password" placeholder="确认密码"
+                                           type="password">
+                                    <img src="{% url 'main:ver_code' %}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                        id="img"> 看不清？点击图片换一张 </span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="checkbox primary">
+                                        <input type="checkbox" id="checkbox2"> <label for="checkbox2"> Remember
+                                        me </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group m-b-0">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-primary">确认修改</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.col-md-6-->
+
+            </form>
+            <form method="post" action="{% url 'hotel:add_staff' %}">
+                {% csrf_token %}
+                <!--添加员工信息-->
+                <div class="col-md-6">
+                    <div class="white-box">
+                        <h2 class="header-title">添加员工</h2>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">用户名</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="inputEmail3" name="username" placeholder="用户名"
+                                           type="text">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">姓名</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="inputEmail3" name="name" placeholder="姓名"
+                                           type="text">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">联系方式</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="inputEmail3" name="phone" placeholder="联系方式"
+                                           type="text">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">邮箱</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="inputEmail3" name="email" placeholder="邮箱"
+                                           type="email">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">密码</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="inputPassword3" name="password" placeholder="密码"
+                                           type="password">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">基础工资</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="inputPassword3" name="base_salary" placeholder="基础工资"
+                                           type="text">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">验证码</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" name="code" placeholder="验证码"
+                                           type="text">
+                                    <img src="{% url 'hotel:ver_code' %}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                        id="img"> 看不清？点击图片换一张 </span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="checkbox primary">
+                                        <input type="checkbox" id="checkbox2"> <label for="checkbox2"> Remember
+                                        me </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group m-b-0">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-primary">确认添加</button>
+                                </div>
+                            </div>
+                    </div>
+                </div><!-- /.col-md-6-->
+            </form>
+        </div>
+
+
+    </div>
+{% endblock %}
+
+

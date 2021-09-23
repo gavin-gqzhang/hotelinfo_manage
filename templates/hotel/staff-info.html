@@ -1,0 +1,198 @@
+{% extends 'hotel/base.html' %}
+
+{% load static %}
+{% block top %}
+    {{ block.super }}
+{% endblock %}
+{% block staff-info %}
+    <div class="wrapper">
+
+        <!--Start Page Title-->
+        <div class="page-title-box">
+            <h4 class="page-title">个人信息维护</h4>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{% url 'hotel:staff_index' %}">酒店后台管理系统</a>
+                </li>
+                <li>
+                    <a href="{% url 'hotel:staff_index' %}">员工信息</a>
+                </li>
+                <li class="active">
+                    个人信息维护
+                </li>
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+        <!--End Page Title-->
+
+        <div class="row">
+            <form method="post" action="{% url 'hotel:update_staff_info' %}">
+                {% csrf_token %}
+                <!--修改个人信息-->
+                <div class="col-md-6">
+                    <div class="white-box">
+                        <h2 class="header-title">修改个人信息</h2>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">用户名</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="inputEmail3" name="username" readonly="readonly" placeholder="用户名"
+                                           type="text" value="{{ user.username }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">姓名</label>
+                                <div class="col-sm-9">
+                                    {% ifequal userinfo.name None %}
+                                    <input class="form-control" id="inputEmail3" name="name" placeholder="姓名"
+                                           type="text">
+                                    {% else %}
+                                        <input class="form-control" id="inputEmail3" name="name" placeholder="姓名"
+                                           type="text" value="{{ userinfo.name }}">
+                                    {% endifequal %}
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">联系方式</label>
+                                <div class="col-sm-9">
+                                    {% ifequal userinfo.phone None %}
+                                    <input class="form-control" id="inputEmail3" name="phone" placeholder="联系方式"
+                                           type="text">
+                                    {% else %}
+                                        <input class="form-control" id="inputEmail3" name="phone" placeholder="联系方式"
+                                           type="text" value="{{ userinfo.phone }}">
+                                    {% endifequal %}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">地址</label>
+                                <div class="col-sm-9">
+                                    {% ifequal userinfo.address None %}
+                                    <input class="form-control" id="inputEmail3" name="address" placeholder="家庭地址"
+                                           type="text">
+                                    {% else %}
+                                        <input class="form-control" id="inputEmail3" name="address" placeholder="家庭地址"
+                                           type="text" value="{{ userinfo.address }}">
+                                    {% endifequal %}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">邮箱</label>
+                                <div class="col-sm-9">
+                                    {% ifequal user.email None %}
+                                    <input class="form-control" id="inputEmail3" name="email" placeholder="邮箱"
+                                           type="text">
+                                    {% else %}
+                                        <input class="form-control" id="inputEmail3" name="email" placeholder="邮箱"
+                                           type="text" value="{{ user.email }}">
+                                    {% endifequal %}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">验证码</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" name="code" placeholder="验证码"
+                                           type="text">
+                                    <img src="{% url 'hotel:ver_code' %}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                        id="img"> 看不清？点击图片换一张 </span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="checkbox primary">
+                                        <input type="checkbox" id="checkbox2"> <label for="checkbox2"> Remember
+                                        me </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group m-b-0">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-primary">确认修改</button>
+                                </div>
+                            </div>
+                    </div>
+                </div><!-- /.col-md-6-->
+            </form>
+            <form method="post" action="{% url 'main:change_password' %}">
+                {% csrf_token %}
+                <!--修改密码-->
+                <div class="col-md-6">
+                    <div class="white-box">
+                        <h2 class="header-title">修改密码</h2>
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">用户名</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" readonly="readonly" id="inputEmail3" name="username" placeholder="用户名"
+                                           type="text" value="{{ user.username }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">邮箱</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="inputEmail3" name="email" placeholder="邮箱"
+                                           type="email">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">新密码</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="inputPassword3" name="password" placeholder="新密码"
+                                           type="password">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">确认密码</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" name="make_sure_password" placeholder="确认密码"
+                                           type="password">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">验证码</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" name="make_sure_password" placeholder="确认密码"
+                                           type="password">
+                                    <img src="{% url 'main:ver_code' %}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                        id="img"> 看不清？点击图片换一张 </span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="checkbox primary">
+                                        <input type="checkbox" id="checkbox2"> <label for="checkbox2"> Remember
+                                        me </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group m-b-0">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-primary">确认修改</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.col-md-6-->
+
+            </form>
+        </div>
+
+
+    </div>
+{% endblock %}
+
+

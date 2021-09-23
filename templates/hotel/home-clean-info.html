@@ -1,0 +1,66 @@
+{% extends 'hotel/base.html' %}
+{% block top %}
+    {{ block.super }}
+{% endblock %}
+{% block home-clean-info %}
+        <!--body wrapper start-->
+        <div class="wrapper">
+
+          <!--Start Page Title-->
+           <div class="page-title-box">
+                <h4 class="page-title">今日房屋清洁表</h4>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="{% url 'hotel:staff_index' %}">酒店后台管理系统</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'hotel:home_clean_info' %}">房屋清洁</a>
+                    </li>
+                    <li class="active">
+                        今日房屋清洁表
+                    </li>
+                </ol>
+                <div class="clearfix"></div>
+             </div>
+              <!--End Page Title-->
+
+
+               <!-- Start responsive Table-->
+                <div class="col-md-12">
+                 <div class="white-box">
+                    <h2 class="header-title">今日房屋清洁表</h2>
+                     <div class="table-responsive">
+                         <table class="table table-bordered">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>房间号</th>
+                              <th>是否清洁</th>
+                              <th>是否入住</th>
+                              <th>打扫人</th>
+                              <th>我已打扫</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for home in homes %}
+                                <tr>
+                                  <td>{{ forloop.counter }}</td>
+                                  <td>{{ home.num }}</td>
+                                  <td>{{ home.is_clean }}</td>
+                                  <td>{{ home.is_live }}</td>
+                                  <td>{{ home.clean_user }}</td>
+                                  <td><a href="{% url 'hotel:clean_home' home.num %}">我已打扫</a></td>
+                                </tr>
+                            {% endfor %}
+
+                           </tbody>
+                        </table>
+
+                     </div>
+                 </div>
+                 </div>
+               <!-- End responsive Table-->
+
+			    </div>
+        <!-- End Wrapper-->
+{% endblock %}

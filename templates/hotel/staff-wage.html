@@ -1,0 +1,71 @@
+{% extends 'hotel/base.html' %}
+{% block top %}
+    {{ block.super }}
+{% endblock %}
+{% block staff-wage %}
+    <!--body wrapper start-->
+    <div class="wrapper">
+
+        <!--Start Page Title-->
+        <div class="page-title-box">
+            <h4 class="page-title">工资详情</h4>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{% url 'hotel:staff_index' %}">酒店后台管理系统</a>
+                </li>
+                <li>
+                    <a href="{% url 'hotel:staff_wage' %}">工资详情</a>
+                </li>
+                <li class="active">
+                    工资信息
+                </li>
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+        <!--End Page Title-->
+
+
+        <!-- Start responsive Table-->
+        <div class="col-md-12">
+            <div class="white-box">
+                <h2 class="header-title">今日房屋清洁表</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>月份</th>
+                            <th>基础工资</th>
+                            <th>绩效工资</th>
+                            <th>清扫房间数量</th>
+                            <th>结算工资</th>
+                            <th>结算时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for staff in staff_wage %}
+                            <tr>
+                                <td>{{ staff.date_pay }}月</td>
+                                <td>{{ staff.base_salary }}</td>
+                                <td>{{ staff.performance }}</td>
+                                <td>{{ staff.clean_num }}</td>
+                                <td>{{ staff.pay }}</td>
+                                {% ifequal staff.datetime None %}
+                                    <td>未结算</td>
+                                {% else %}
+                                    <td>{{ staff.datetime }}</td>
+                                {% endifequal %}
+
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <!-- End responsive Table-->
+
+    </div>
+    <!-- End Wrapper-->
+{% endblock %}

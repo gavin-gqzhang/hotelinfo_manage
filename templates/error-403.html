@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+  <title>403</title>
+   <link href="{% static 'css/icons.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+
+</head>
+
+<body class="error-bg">
+
+ <!--Start Section-->
+ <section>
+     <div class="container">
+         <div class="row">
+             <div class="error-inner">
+                 <h1>想屁吃呢？</h1>
+                 <h3>您的请求已被禁止！</h3>
+                 <p>别想一些歪门邪道，安安心心走正常的请求流程，小心送你一副银手镯！</p>
+                 <a href="{% url 'main:index' %}" class="btn btn-primary">回到首页</a>
+             </div>   
+         </div>
+     </div>
+ </section>
+ <!--End Section-->
+
+
+
+
+    <!--Begin core plugin -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'plugins/moment/moment.js' %}"></script>
+    <script  src="{% static 'js/jquery.slimscroll.js' %}"></script>
+    <script src="{% static 'js/jquery.nicescroll.js' %}"></script>
+    <script src="{% static 'js/functions.js' %}"></script>
+    <!-- End core plugin -->
+
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+{% extends 'hotel/base.html' %}
+{% load static %}
+{% block top %}
+    {{ block.super }}
+{% endblock %}
+{% block order_table %}
+    <div class="wrapper">
+
+          <!--Start Page Title-->
+           <div class="page-title-box">
+                <h4 class="page-title">订单信息</h4>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="{% url 'hotel:backstage_index' %}">酒店后台管理系统</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'hotel:order_list' %}">相关信息</a>
+                        </li>
+                        <li class="active">
+                            订单信息列表
+                        </li>
+                    </ol>
+                <div class="clearfix"></div>
+             </div>
+              <!--End Page Title-->
+
+
+               <!-- Start responsive Table-->
+                <div class="col-md-12">
+                 <div class="white-box">
+                    <h2 class="header-title">全部订单</h2>
+                     <div class="table-responsive">
+                         <table class="table table-bordered">
+                          <thead>
+                            <tr>
+                              <th>订单编号</th>
+                              <th>入住人姓名</th>
+                              <th>房型</th>
+                              <th>房号</th>
+                              <th>入住时间</th>
+                              <th>入住天数</th>
+                              <th>订单详情</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          {% for order in order_list %}
+                              <tr>
+                              <td>{{ order.ordernum }}</td>
+                              <td>{{ order.name }}</td>
+                                  {% for home in home_list %}
+                                    {% ifequal order.homeid home.id %}
+                                        <td>{{ home.name }}</td>
+                                    {% endifequal %}
+                                  {% endfor %}
+                              <td>{{ order.home_num }}</td>
+                              <td>{{ order.intime}}</td>
+                              <td>{{ order.days}}</td>
+                              <td><a href="{% url 'hotel:order_datail' order.ordernum %}">查看详情</a></td>
+                            </tr>
+                          {% endfor %}
+
+
+                          </tbody>
+                        </table>
+
+                     </div>
+                 </div>
+                 </div>
+               <!-- End responsive Table-->
+
+			    </div>
+{% endblock %}
+

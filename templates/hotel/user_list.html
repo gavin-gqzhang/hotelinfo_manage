@@ -1,0 +1,136 @@
+{% extends 'hotel/base.html' %}
+{% load static %}
+{% block top %}
+    {{ block.super }}
+{% endblock %}
+{% block tables %}
+    <div class="wrapper">
+
+              <!--Start Page Title-->
+               <div class="page-title-box">
+                    <h4 class="page-title">全部信息</h4>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="{% url 'hotel:backstage_index' %}">酒店后台管理系统</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'hotel:user_list' %}">相关信息</a>
+                        </li>
+                        <li class="active">
+                            全部信息列表
+                        </li>
+                    </ol>
+                    <div class="clearfix"></div>
+                 </div>
+                  <!--End Page Title-->
+
+
+               <!--Start row-->
+               <div class="row">
+
+               <!-- Start Basic Table-->
+                <div class="col-md-6">
+                 <div class="white-box">
+                    <h2 class="header-title">员工信息</h2>
+                     <div class="table-wrap">
+                            <table class="table">
+                          <thead>
+                            <tr>
+                              <th>姓名</th>
+                              <th>联系方式</th>
+                              <th>家庭地址</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for foo in userlist %}
+                                <tr>
+                                  <td>{{ foo.name }}</td>
+                                  <td>{{ foo.phone }}</td>
+                                  <td>{{ foo.address}}</td>
+                                </tr>
+                            {% endfor %}
+
+                          </tbody>
+                        </table>
+                     </div>
+                 </div>
+                 </div>
+               <!-- End Basic Table-->
+
+               <!-- Start  Striped  Table-->
+                <div class="col-md-6">
+                 <div class="white-box">
+                    <h2 class="header-title">房型信息</h2>
+                     <div class="table-wrap">
+                            <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>房型名称</th>
+                              <th>房间数量</th>
+                              <th>详细信息</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for foo in homelist %}
+                            <tr>
+                              <td>{{ foo.name }}</td>
+                              <td>{{ foo.num }}</td>
+                              <td>{{ foo.datail }}</td>
+                            </tr>
+                            {% endfor %}
+
+                          </tbody>
+                        </table>
+                     </div>
+                 </div>
+                 </div>
+               <!-- End  Striped Table-->
+
+               <div class="row">
+                <!-- Start  hover  Table-->
+                <div class="col-md-6">
+                 <div class="white-box">
+                    <h2 class="header-title"> 房型名称</h2>
+                     <div class="table-wrap">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>房间号</th>
+                                        <th>是否打扫</th>
+                                        <th>最后一次打扫人</th>
+                                    </tr>
+                                </thead>
+                                <!-- 打扫和未打扫使用不同颜色表示-->
+                                <tbody>
+                                    {% for homenum in homenums %}
+                                    {% ifequal homenum.is_clean 1 %}
+                                        <tr class="success">
+                                        <th scope="row">{{ homenum.num }}</th>
+                                        <td>已打扫</td>
+                                        <td>{{ homenum.clean_user }}</td>
+                                    </tr>
+                                        {% else %}
+                                        <tr class="danger">
+                                        <th scope="row">{{ homenum.num }}</th>
+                                        <td>未打扫</td>
+                                        <td>{{ homenum.clean_user }}</td>
+                                    </tr>
+                                    {% endifequal %}
+
+
+
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                     </div>
+                 </div>
+                 </div>
+               <!-- End  hover Table-->
+
+             </div>
+              <!--/row-->
+
+			    </div>
+    </div>
+{% endblock %}

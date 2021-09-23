@@ -1,0 +1,213 @@
+{% extends 'hotel/base.html' %}
+{% load static %}
+{% block top %}
+    {{ block.super }}
+{% endblock %}
+{% block order_datail %}
+    <div class="wrapper">
+        <!--Start Page Title-->
+        <div class="page-title-box">
+            <h4 class="page-title">订单详情</h4>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{% url 'hotel:backstage_index' %}">酒店后台管理系统</a>
+                </li>
+                <li>
+                    <a href="{% url 'hotel:order_list' %}">订单信息</a>
+                </li>
+                <li class="active">
+                    订单详情
+                </li>
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+        <!--End Page Title-->
+
+        <!-- Start row-->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="white-box">
+                    <h2 class="header-title">订单信息 </h2>
+                    <div class="form-group">
+                        <label>房型</label>
+                        <div class="input-group">
+                            <div class="bootstrap-timepicker">
+                                <input id="timepicker" value="{{ homeinfo.name }}" readonly="readonly" type="text"
+                                       class="form-control">
+                            </div>
+                            <span class="input-group-addon b-0 text-white"><i
+                                    class="glyphicon glyphicon-star-empty"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>价格</label>
+                        <div class="input-group">
+                            <div class="bootstrap-timepicker">
+                                <input id="timepicker2" readonly="readonly" value="{{ homeinfo.price }}" type="text"
+                                       class="form-control">
+                            </div>
+                            <span class="input-group-addon b-0 text-white"><i
+                                    class="glyphicon glyphicon-yen"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>入住天数</label>
+                        <div class="input-group">
+                            <div class="bootstrap-timepicker">
+                                <input id="timepicker3" value="{{ order.days }}" readonly="readonly" type="text"
+                                       class="form-control">
+                            </div>
+                            <span class="input-group-addon b-0 text-white"><i
+                                    class="glyphicon glyphicon-time"></i></span>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label>房间号</label>
+                        <div class="input-group">
+                            <div class="bootstrap-timepicker">
+                                <input id="timepicker3" value="{{ order.home_num }}" readonly="readonly" type="text"
+                                       class="form-control">
+                            </div>
+                            <span class="input-group-addon b-0 text-white"><i
+                                    class="glyphicon glyphicon-home"></i></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>是否入住</label>
+                        <div class="input-group">
+                            <div class="bootstrap-timepicker">
+                                {% ifequal order.check_in 1 %}
+                                    <input id="timepicker3" value="已入住" readonly="readonly" type="text"
+                                           class="form-control">
+                                {% else %}
+                                    <input id="timepicker3" value="未入住" readonly="readonly" type="text"
+                                           class="form-control">
+                                {% endifequal %}
+
+                            </div>
+                            <span class="input-group-addon b-0 text-white"><i
+                                    class="glyphicon glyphicon-check"></i></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>是否退宿</label>
+                        <div class="input-group">
+                            <div class="bootstrap-timepicker">
+                                {% ifequal order.is_departure 1 %}
+                                    <input id="timepicker3" value="已退宿" readonly="readonly" type="text"
+                                           class="form-control">
+                                {% else %}
+                                    <input id="timepicker3" value="未退宿" readonly="readonly" type="text"
+                                           class="form-control">
+                                {% endifequal %}
+
+                            </div>
+                            <span class="input-group-addon b-0 text-white"><i
+                                    class="glyphicon glyphicon-check"></i></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+                <div class="white-box">
+                    <h2 class="header-title">入住人信息</h2>
+                    <form action="#">
+                        <div class="form-group">
+                            <label>姓名</label>
+                            <div class="input-group">
+                            <div class="bootstrap-timepicker">
+                                <input id="timepicker3" value="{{ order.name }}" readonly="readonly" type="text"
+                                       class="form-control">
+                            </div>
+                            <span class="input-group-addon b-0 text-white"><i
+                                    class="glyphicon glyphicon-header"></i></span>
+                        </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>联系方式</label>
+                            <div class="input-group">
+                            <div class="bootstrap-timepicker">
+                                <input id="timepicker3" value="{{ order.phone }}" readonly="readonly" type="text"
+                                       class="form-control">
+                            </div>
+                            <span class="input-group-addon b-0 text-white"><i
+                                    class="glyphicon glyphicon-phone"></i></span>
+                        </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>身份证号</label>
+                            <div class="input-group">
+                            <div class="bootstrap-timepicker">
+                                <input id="timepicker3" value="{{ order.idcard }}" readonly="readonly" type="text"
+                                       class="form-control">
+                            </div>
+                            <span class="input-group-addon b-0 text-white"><i
+                                    class="glyphicon glyphicon-tag"></i></span>
+                        </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>到店时间</label>
+                            <div class="input-group">
+                            <div class="bootstrap-timepicker">
+                                <input id="timepicker3" value="{{ order.intime }}" readonly="readonly" type="text"
+                                       class="form-control">
+                            </div>
+                            <span class="input-group-addon b-0 text-white"><i
+                                    class="glyphicon glyphicon-time"></i></span>
+                        </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>离店时间</label>
+                            <div class="input-group">
+                            <div class="bootstrap-timepicker">
+                                <input id="timepicker3" value="{{ order.outtime }}" readonly="readonly" type="text"
+                                       class="form-control">
+                            </div>
+                            <span class="input-group-addon b-0 text-white"><i
+                                    class="glyphicon glyphicon-time"></i></span>
+                        </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>入住人数</label>
+                            <div class="input-group">
+                            <div class="bootstrap-timepicker">
+                                <input id="timepicker3" value="{{ order.live_num }}" readonly="readonly" type="text"
+                                       class="form-control">
+                            </div>
+                            <span class="input-group-addon b-0 text-white"><i
+                                    class="glyphicon glyphicon-oil"></i></span>
+                        </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>订单金额</label>
+                            <div class="input-group">
+                            <div class="bootstrap-timepicker">
+                                <input id="timepicker3" value="{{ order.price }}" readonly="readonly" type="text"
+                                       class="form-control">
+                            </div>
+                            <span class="input-group-addon b-0 text-white"><i
+                                    class="glyphicon glyphicon-yen"></i></span>
+                        </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <!-- End row-->
+
+    </div>
+{% endblock %}

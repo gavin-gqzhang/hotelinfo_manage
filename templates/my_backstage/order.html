@@ -1,0 +1,57 @@
+{% extends 'my_backstage/base.html' %}
+{% load static %}
+
+{% block my_order %}
+    <section class="section about-me" data-section="{% url 'main:order_list' %}">
+        <div class="container">
+            <div class="section-heading">
+                <h2>我的订单</h2>
+                <div class="line-dec"></div>
+            </div>
+            {% for order in order_list %}
+                <div class="left-image-post">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="left-image">
+                                <img src="{% static 'my_backstage/assets/images/left-image.jpg' %}" alt=""/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="right-text">
+                                {% for hotel in hotel_list %}
+                                    {% ifequal order.hotelid hotel.id %}
+                                        <h4>{{ hotel.name }}</h4>
+                                    {% endifequal %}
+                                {% endfor %}
+                                <p>
+                                    订单编号：{{ order.ordernum }}
+                                    下单时间：{{ order.ordertime }}
+                                </p>
+                                <p>
+                                    {% for home in home_list %}
+                                        {% ifequal order.homeid home.id %}
+                                                房型：{{ home.name }}
+                                        {% endifequal %}
+                                    {% endfor %}
+                                    使用时间：{{ order.intime }}
+                                </p>
+                                <p>
+                                    预订人：{{ order.name }}
+                                    价格：{{ order.price }}
+                                </p>
+                                <div class="white-button">
+                                    <a href="{% url 'main:order_datail' order_num=order.ordernum %}">查看详情</a>
+                                </div>
+                                {% ifequal order.check_in 0 %}
+                                    <div class="white-button">
+                                    <a href="{% url 'main:to_stay_in' order_num=order.ordernum %}">确认入住</a>
+                                </div>
+                                {% endifequal %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

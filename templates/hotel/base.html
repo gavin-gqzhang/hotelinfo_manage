@@ -1,0 +1,266 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'assets/hotel_assets/images/favicon.png' %}" type="image/png">
+    <title>酒店后台</title>
+
+    <!--Begin  Page Level  CSS -->
+    <link href="{% static 'assets/hotel_assets/plugins/morris-chart/morris.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/hotel_assets/plugins/jquery-ui/jquery-ui.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'assets/hotel_assets/plugins/timepicker/bootstrap-timepicker.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/hotel_assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css' %}"
+          rel="stylesheet">
+    <link href="{% static 'assets/hotel_assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css' %}"
+          rel="stylesheet">
+    <link href="{% static 'assets/hotel_assets/plugins/clockpicker/css/bootstrap-clockpicker.min.css' %}"
+          rel="stylesheet">
+    <link href="{% static 'assets/hotel_assets/plugins/bootstrap-daterangepicker/daterangepicker.css' %}"
+          rel="stylesheet">
+
+    <!--End  Page Level  CSS -->
+    <link href="{% static 'assets/hotel_assets/css/icons.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/hotel_assets/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/hotel_assets/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/hotel_assets/css/responsive.css' %}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+          <script src="{% static 'assets/hotel_assets/js/html5shiv.min.js' %}"></script>
+          <script src="{% static 'assets/hotel_assets/js/respond.min.js' %}"></script>
+    <![endif]-->
+
+</head>
+
+<body class="sticky-header">
+
+
+<!--Start left side Menu-->
+<div class="left-side sticky-left-side">
+
+    <!--logo-->
+    <div class="logo">
+        <a href="index.html"><img src="{% static 'assets/hotel_assets/images/logo.png' %}" alt=""></a>
+    </div>
+
+    <div class="left-side-inner">
+        <!--Sidebar nav-->
+        {% ifequal is_staff 1 %}
+            <ul class="nav nav-pills nav-stacked custom-nav">
+                <li class="menu-list"><a href="{% url 'hotel:staff_index' %}"><i class="icon-home"></i> <span>首页</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="{% url 'hotel:staff_index' %}">首页</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-list"><a href="#"><i class="icon-grid"></i> <span>清洁信息</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="{% url 'hotel:home_clean_info' %}">房屋清洁</a></li>
+                        <li><a href="{% url 'hotel:staff_wage' %}">工资信息</a></li>
+                    </ul>
+                </li>
+            </ul>
+        {% else %}
+            <ul class="nav nav-pills nav-stacked custom-nav">
+                <li class="menu-list"><a href="{% url 'hotel:backstage_index' %}"><i class="icon-home"></i>
+                    <span>首页</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="{% url 'hotel:backstage_index' %}">首页</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-list"><a href="#"><i class="icon-grid"></i> <span>相关信息</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="{% url 'hotel:user_list' %}"> 全部信息</a></li>
+                        <li><a href="{% url 'hotel:order_list' %}">全部订单</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-list"><a href="#"><i class="icon-loop"></i> <span>信息维护</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="{% url 'hotel:user_info' %}">个人信息与员工信息维护</a></li>
+                        <li><a href="{% url 'hotel:home_info' %}">房型信息与房间信息维护</a></li>
+                        <li><a href="{% url 'hotel:hotel_info' %}">酒店信息维护</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="menu-list"><a href="#"><i class="fa-jpy"></i> <span>交易信息</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="{% url 'hotel:sale_info' %}">收益信息</a></li>
+                        <li><a href="{% url 'hotel:staff_pay' %}">工资信息</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-list"><a href="#"><i class="fa-sign-out"></i> <span>登出</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="{% url 'main:sign_out' %}">确认退出</a></li>
+                    </ul>
+                </li>
+            </ul>
+        {% endifequal %}
+
+        <!--End sidebar nav-->
+
+    </div>
+</div>
+<!--End left side menu-->
+
+
+<!-- main content start-->
+<div class="main-content">
+
+    <!-- header section start-->
+    <div class="header-section">
+
+        <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+
+        <form class="searchform">
+            <input type="text" class="form-control" name="keyword" placeholder="Search here..."/>
+        </form>
+
+        <!--notification menu start -->
+        {% block top %}
+        <div class="menu-right">
+            <ul class="notification-menu">
+                <li>
+                    <a href="#" class="btn btn-default dropdown-toggle info-number" data-toggle="dropdown">
+                        <i class="fa fa-tasks"></i>
+                        <span class="badge">{{ today_order }}</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-head pull-right">
+                        <h5 class="title">你有{{ today_order }}条信息</h5>
+                        <ul class="dropdown-list">
+                            <li class="notification-scroll-list notification-list ">
+                                <!-- 循环订单信息，数量即订单数量，点击展示订单详细信息-->
+                                {% for foo in order_list  %}
+                                <a href="{% url 'hotel:order_datail' foo.ordernum %}" class="list-group-item">
+                                    <div class="media">
+                                        <div class="pull-left p-r-10">
+                                            <em class="fa  fa-shopping-cart noti-primary"></em>
+                                        </div>
+                                        <div class="media-body">
+                                            <h5 class="media-heading">{{ foo.name }}</h5>
+                                            <p class="m-0">
+                                                <small>{{ foo.ordertime }}</small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                                {% endfor %}
+
+                            </li>
+                            <li class="last"></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <img src="{% static 'assets/hotel_assets/images/users/avatar-6.jpg' %}" alt=""/>
+                        {{ username }}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                        <li><a href="{% url 'hotel:user_info' %}"> <i class="fa fa-user"></i> 个人中心 </a></li>
+                        <li><a href="{% url 'hotel:user_info' %}"> <i class="fa fa-dedent"></i> 修改密码 </a></li>
+                        <li><a href="{% url 'main:sign_out' %}"> <i class="fa fa-lock"></i> 登出 </a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+        {% endblock %}
+        <!--notification menu end -->
+
+    </div>
+    <!-- header section end-->
+
+
+    <!--body wrapper start-->
+    {# 首页信息嵌套#}
+    {% block index %}{% endblock %}
+    {# 全部信息列表渲染 #}
+    {% block tables %}{% endblock %}
+    {# 订单信息列表渲染 #}
+    {% block order_table %}{% endblock %}
+    {# 订单详细信息渲染 #}
+    {% block order_datail %}{% endblock %}
+    {# 酒店信息维护 #}
+    {% block hotel_info %}
+
+    {% endblock %}
+    {# 用户信息维护 #}
+    {% block user_info %}
+
+    {% endblock %}
+    {# 房型信息维护 #}
+    {% block home_info %}
+
+    {% endblock %}
+
+    {# 交易信息 #}
+    {% block sale-info %}
+
+    {% endblock %}
+    {# 员工工资结算 #}
+    {% block staff-pay %}
+
+    {% endblock %}
+
+    {#员工信息#}
+    {% block staff-info %}
+
+    {% endblock %}
+
+    {#房屋清洁信息#}
+    {% block home-clean-info %}
+
+    {% endblock %}
+
+    {#员工工资信息渲染#}
+    {% block staff-wage %}
+
+    {% endblock %}
+    <!-- End Wrapper-->
+
+
+</div>
+<!--End main content -->
+
+
+<!--Begin core plugin -->
+<script src="{% static 'assets/hotel_assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/hotel_assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/hotel_assets/plugins/moment/moment.js' %}"></script>
+<script src="{% static 'assets/hotel_assets/js/jquery.slimscroll.js' %} "></script>
+<script src="{% static 'assets/hotel_assets/js/jquery.nicescroll.js' %}"></script>
+<script src="{% static 'assets/hotel_assets/js/functions.js' %}"></script>
+<script type="text/javascript" src="{% static 'change' %}"></script>
+<!-- End core plugin -->
+
+<!--Begin Page Level Plugin-->
+<script src="{% static 'assets/hotel_assets/plugins/morris-chart/morris.js' %}"></script>
+<script src="{% static 'assets/hotel_assets/plugins/morris-chart/raphael-min.js' %}"></script>
+<script src="{% static 'assets/hotel_assets/plugins/jquery-sparkline/jquery.sparkline.min.js' %}"></script>
+<script src="{% static 'assets/hotel_assets/pages/dashboard.js' %}"></script>
+<script src="{% static 'assets/hotel_assets/plugins/timepicker/bootstrap-timepicker.js' %}"></script>
+<script src="{% static 'assets/hotel_assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js' %}"></script>
+<script src="{% static 'assets/hotel_assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+<script src="{% static 'assets/hotel_assets/plugins/clockpicker/js/bootstrap-clockpicker.min.js' %}"></script>
+<script src="{% static 'assets/hotel_assets/plugins/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
+<script src="{% static 'assets/hotel_assets/plugins/jquery-validation/jquery.validate.min.js' %}"></script>
+<script src="{% static 'assets/hotel_assets/pages/validation-custom.js' %}"></script>
+<!--End Page Level Plugin-->
+
+
+</body>
+
+</html>

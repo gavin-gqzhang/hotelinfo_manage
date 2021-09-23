@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+  <title>成为商家</title>
+   <link href="{% static 'css/icons.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+ <!--Start login Section-->
+  <section class="login-section">
+       <div class="container">
+           <div class="row">
+               <div class="login-wrapper">
+                   <div class="login-inner">
+                       
+                       <div class="logo">
+                         <img src="{% static 'images/logo-dark.png' %}"  alt="logo"/>
+                       </div>
+                   		
+                   		<h2 class="header-title text-center">成为商家</h2>
+                        
+                       <form method="post" action="{% url "hotel:becom_merchants"%}">
+                           {% csrf_token %}
+                           <div class="form-group">
+                               <input type="text" class="form-control"  placeholder="用户名" name="username">
+                           </div>
+                           
+                           <div class="form-group">
+                               <input type="text" class="form-control"  placeholder="酒店名称" name="hotel_name">
+                           </div>
+
+                           <div class="form-group">
+                               <input type="text" class="form-control"  placeholder="店长姓名" name="name">
+                           </div>
+
+                           <div class="form-group">
+                               <input type="email" class="form-control"  placeholder="邮箱（用于找回密码和通知）" name="email">
+                           </div>
+
+                           <div class="form-group">
+                               <input type="password" class="form-control"  placeholder="密码" name="password">
+                           </div>
+
+                           <div class="form-group">
+                               <input type="password" class="form-control"  placeholder="确认密码" name="make_sure_password">
+                           </div>
+
+                           <div class="form-group">
+                                <input type="text" class="form-control" name="code"  placeholder="验证码" >
+                               <img  src="{% url 'hotel:ver_code' %}"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span id="img"> 看不清？点击图片换一张 </span>
+                           </div>
+
+                           <div class="form-group">
+                           <div class="pull-left">
+                               <div class="checkbox primary">
+                              <input  id="checkbox-1" type="checkbox">
+                              <label for="checkbox-1">我同意 <a href="#">用户协议</a></label>
+                            </div>
+                           </div>
+                         </div>
+                          
+                           <div class="form-group">
+                               <input type="submit" value="注册" class="btn btn-primary btn-block" >
+                           </div>
+                           
+                           <div class="form-group text-center">
+                            已存在一个账户?  <a href="{% url 'hotel:index' %}">登录</a>
+                           </div>
+                           
+                       </form>
+                       
+                        <div class="copy-text"> 
+                         <p class="m-0">2017 &copy; made by 谢瑞雪</p>
+                        </div>
+                    
+                   </div>
+               </div>
+               
+           </div>
+       </div>
+  </section>
+
+    <!--Begin core plugin -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'plugins/moment/moment.js' %}"></script>
+    <script  src="{% static 'js/jquery.slimscroll.js' %}"></script>
+    <script src="{% static 'js/jquery.nicescroll.js' %}"></script>
+    <script src="{% static 'js/functions.js' %}"></script>
+    <!-- End core plugin -->
+
+<script type="text/javascript">
+    window.onload = function () {
+        if ("{{ msg }}" != "") {
+            alert("{{ msg }}")
+        }
+    }
+
+</script>
+
+</body>
+
+</html>

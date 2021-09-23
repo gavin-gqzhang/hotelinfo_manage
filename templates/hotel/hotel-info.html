@@ -1,0 +1,165 @@
+{% extends 'hotel/base.html' %}
+
+{% load static %}
+{% block top %}
+    {{ block.super }}
+{% endblock %}
+{% block hotel_info %}
+    <div class="wrapper">
+        <!--Start Page Title-->
+        <div class="page-title-box">
+            <h4 class="page-title">酒店信息维护</h4>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{% url 'hotel:backstage_index' %}">酒店后台管理系统</a>
+                </li>
+                <li>
+                    <a href="{% url 'hotel:user_info' %}">信息维护</a>
+                </li>
+                <li class="active">
+                    酒店信息维护
+                </li>
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+        <!--End Page Title-->
+
+
+        <!--Start row-->
+        <form action="{% url 'hotel:submit_hotel_info' %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+            <div class="col-md-12">
+                <div class="white-box">
+                    <h2 class="header-title">酒店基本信息</h2>
+                    <form class="js-validation-bootstrap form-horizontal" action="" method="post">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="val-username">用户名 </label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" id="val-username" name="username" value="{{ username }}"
+                                       readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="val-name">店长姓名<span class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" id="val-name" name="name" value="{{ name }}" placeholder="请输入店长姓名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="val-email">店长邮箱</label>
+                            <div class="col-md-9">
+                                {% ifequal email None %}
+                                    <input class="form-control" type="email" id="val-email" name="email"
+                                       placeholder="请输入店长邮箱">
+                                    {% else %}
+                                    <input class="form-control" type="email" id="val-email" name="email"
+                                       placeholder="请输入店长邮箱" value="{{ email }}">
+                                {% endifequal %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="user-phone">店长联系方式<span class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                              {% ifequal phone None %}
+                                <input class="form-control" type="text" id="user-phone" name="user_phone" placeholder="请输入店长联系方式">
+                                  {% else %}
+                                  <input class="form-control" type="text" id="user-phone" name="user_phone" placeholder="请输入店长联系方式" value="{{ phone }}">
+                              {% endifequal %}
+
+                            </div>
+                          </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="hotel-name">酒店名称<span class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                              <input class="form-control" type="text" id="hotel-name" name="hotel_name" readonly="readonly" value="{{ hotel_name }}">
+                            </div>
+                          </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="hotel-add">酒店地址<span class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                              {% ifequal address None %}
+                              <input class="form-control" type="text" id="hotel-add" name="hotel_address" placeholder="请输入酒店地址">
+                                  {% else %}
+                                  <input class="form-control" type="text" id="hotel-add" name="hotel_address" placeholder="请输入酒店地址" value="{{ address }}">
+                              {% endifequal %}
+
+                            </div>
+                          </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="hotel-phone">酒店联系方式<span class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                              {% ifequal hotel_phone None %}
+                              <input class="form-control" type="text" id="hotel-phone" name="hotel_phone" placeholder="请输入酒店联系方式">
+                                  {% else %}
+                                  <input class="form-control" type="text" id="hotel-phone" name="hotel_phone" placeholder="请输入酒店联系方式" value="{{ hotel_phone }}">
+                              {% endifequal %}
+
+                            </div>
+                          </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="hotel-add">酒店营业时间<span class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                              {% ifequal hotel_opentime None %}
+                              <input class="form-control" type="text" id="hotel-opentime" name="hotel_opentime" placeholder="请输入酒店营业时间">
+                                  {% else %}
+                                  <input class="form-control" type="text" id="hotel-opentime" name="hotel_opentime" placeholder="请输入酒店营业时间" value="{{ hotel_opentime }}">
+                              {% endifequal %}
+
+                            </div>
+                          </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="val-suggestions">酒店介绍 <span class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                {% ifequal hotel_detail None %}
+                                <textarea class="form-control" id="val-suggestions" name="detail" rows="14"
+                                          placeholder="请输入酒店相关介绍，用于向客户展示"></textarea>
+                                    {% else %}
+                                    <textarea class="form-control" id="val-suggestions" name="detail" rows="14"
+                                          >{{ hotel_detail }}</textarea>
+                                {% endifequal %}
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="hotel-city">酒店所在城市（精准到区县）<span class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                              {% ifequal hotel_city None %}
+                              <input class="form-control" type="text" id="hotel-city" name="hotel_city" placeholder="如：山东省临沂市兰山区或北京市海淀区">
+                            {% else %}
+                                  <input class="form-control" type="text" id="hotel-city" name="hotel_city" value="{{ hotel_city }}" placeholder="如：山东省临沂市兰山区或北京市海淀区">
+                              {% endifequal %}
+
+                            </div>
+                          </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> 协议 <span class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <div class="checkbox primary">
+                                    <input type="checkbox" id="val-terms" name="val-terms" value="1">
+                                    <label class="css-input css-checkbox css-checkbox-primary" for="val-terms">
+                                        我同意此协议
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-3">
+                                <button class="btn  btn-primary" type="submit">确认修改</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </form>
+        <!-- end row -->
+
+    </div>
+{% endblock %}

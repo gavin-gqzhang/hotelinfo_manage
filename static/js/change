@@ -1,0 +1,5 @@
+$(function () {
+    $('img').click(function () {
+        $(jQuery(this).attr("src","/ver_code/?t="+Math.random()))
+    })
+})
