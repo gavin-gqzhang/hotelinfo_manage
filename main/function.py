@@ -31,10 +31,10 @@ def send_mail(option,message):
         receivers：接收者邮箱
     """
     host_server = 'smtp.qq.com'
-    sender_qq = '2230685848'
-    pwd = 'jiogkssbuptddifc'
-    send_mail = '2230685848@qq.com'
-    receivers = '2230685848@qq.com'
+    sender_qq = ''
+    pwd = ''
+    send_mail = '@qq.com'
+    receivers = '@qq.com'
     # 确定操作，修改密码进行邮箱验证
     if option=="修改密码":
         mail_content="""
